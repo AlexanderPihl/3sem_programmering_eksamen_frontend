@@ -14,6 +14,7 @@ import {
 function AdminCrud() {
   const initialValues = {
     email: "",
+    password: "",
     firstName: "",
     lastName: "",
     phone: "",
@@ -115,12 +116,21 @@ function AdminCrud() {
     return (
       <div>
         <Form onSubmit={handleSubmit}>
-        <Form.Group controlId="email">
+          <Form.Group controlId="email">
             <Form.Label>Email</Form.Label>
             <Form.Control
               type="text"
               placeholder="Email"
               value={person.email}
+              onChange={handleChange}
+            />
+          </Form.Group>
+          <Form.Group controlId="password">
+            <Form.Label>Password</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Password"
+              value={person.password}
               onChange={handleChange}
             />
           </Form.Group>
