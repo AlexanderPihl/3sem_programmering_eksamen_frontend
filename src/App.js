@@ -4,11 +4,12 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Navbar, Nav, Form, FormControl, Button } from "react-bootstrap";
 import AllJokes from "./AllJokes";
 import AllScrape from "./AllScrape";
-import AdminCrud from "./AdminCRUD";
+import AdminCrudSport from "./AdminCRUDSport";
+import AdminCrudTeam from "./AdminCRUDTeam";
 import Login from "./Login";
 import { Switch, Route, NavLink, useHistory } from "react-router-dom";
 
-import AllTeam from "./AllTeam";
+import AllSportAndTeam from "./AllSportAndTeam";
 
 const Header = ({ isLoggedIn, loginMsg, isAdmin, loginName }) => {
   return (
@@ -20,7 +21,7 @@ const Header = ({ isLoggedIn, loginMsg, isAdmin, loginName }) => {
             Home
         </NavLink>
           <NavLink className="nav-link" activeClassName="selected" to="/team">
-            Teams
+            Sport And Teams
         </NavLink>
           {isAdmin && (
             <>
@@ -81,7 +82,7 @@ export default function App() {
             <Home />
           </Route>
           <Route path="/team">
-            <Team />
+            <SportAndTeam />
           </Route>
           <Route path="/admin">
             <Admin />
@@ -111,10 +112,10 @@ function Home() {
   );
 }
 
-function Team() {
+function SportAndTeam() {
   return (
     <div className="pageContent">
-      <AllTeam />
+      <AllSportAndTeam />
     </div>
   );
 }
@@ -122,7 +123,8 @@ function Team() {
 function Admin() {
   return (
     <div className="pageContent">
-      <AdminCrud />
+      <AdminCrudSport />
+      <AdminCrudTeam />
     </div>
   );
 }

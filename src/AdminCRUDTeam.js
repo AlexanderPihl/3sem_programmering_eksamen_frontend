@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import {
   AllUsers, DeleteUser, UpdateUser, GetUser, AddUser,
-  ALLSports, SportByName, AddSport, UpdateSport, DeleteSport
+  AllTeams, TeamByName, AddTeam, UpdateTeam, DeleteTeam
 } from "./settings";
 import {
   Container,
@@ -14,48 +14,50 @@ import {
   Form
 } from "react-bootstrap";
 
-function AdminCrud() {
+function AdminCrudSport() {
   const initialValues = {
-    sportName: "",
-    Description: "",
+    teamName: "",
+    pricePerYear: "",
+    minAge: "",
+    maxAge: ""
   };
 
   //const [allPerson, setAllPerson] = useState([]);
   //const [person, setPerson] = useState(initialValues);
-  const [allSport, setAllSport] = useState([]);
-  const [sport, setSport] = useState(initialValues);
+  const [allTeam, setAllTeam] = useState([]);
+  const [team, setTeam] = useState(initialValues);
 
   const handleSubmit = (event) => {
     //   alert('A name was submitted: ' + person.firstName);
     event.preventDefault();
-    updateForm(sport);
-    console.log("from submit " + sport);
+    updateForm(team);
+    console.log("from submit " + team);
   };
 
   const handleChange = (event) => {
     const target = event.target;
     const id = target.id;
     const value = target.value;
-    setSport({ ...sport, [id]: value });
+    setTeam({ ...team, [id]: value });
     console.log("from change " + id);
   };
 
-  const fetchSport = () => {
-    fetch(ALLSports)
+  const fetchTeam = () => {
+    fetch(AllTeams)
       .then((res) => res.json())
       .then((data) => {
-        setAllSport(data);
+        setAllTeam(data);
       });
   };
 
-  const deleteSport = (sportName) => {
+  const deleteSport = (teamName) => {
     const options = makeOptions("DELETE");
 
-    fetch(DeleteSport + sportName, options)
+    fetch(DeleteTeam + teamName, options)
       .then((res) => res.json())
       .then((data) => {
-        setAllSport(data);
-        fetchSport();
+        setAllTeam(data);
+        fetchTeam();
       })
       .catch((err) => {
         if (err.status) {
@@ -66,12 +68,12 @@ function AdminCrud() {
       });
   };
 
-  const updateForm = (sport) => {
-    const options = makeOptions("PUT", sport);
+  const updateForm = (team) => {
+    const options = makeOptions("PUT", team);
 
-    fetch(UpdateSport + sport.sportName, options)
-      .then((res) => fetchSport())
-      .then(reset => setSport(initialValues))
+    fetch(UpdateTeam + team.teamName, options)
+      .then((res) => fetchTeam())
+      .then(reset => setTeam(initialValues))
       .catch((err) => {
         if (err.status) {
           err.fullError.then((e) => console.log(e.detail));
@@ -81,11 +83,11 @@ function AdminCrud() {
       });
   };
 
-  const getSport = (sportName) => {
-    fetch(SportByName + sportName)
+  const getTeam = (teamName) => {
+    fetch(TeamByName + teamName)
       .then((res) => res.json())
       .then((data) => {
-        setSport(data);
+        setTeam(data);
         console.log(data);
       })
       .catch((err) => {
@@ -97,12 +99,12 @@ function AdminCrud() {
       });
   };
 
-  const addSport = () => {
-    const options = makeOptions("POST", sport);
+  const addTeam = () => {
+    const options = makeOptions("POST", team);
 
-    fetch(AddSport, options)
+    fetch(AddTeam, options)
       .then((res) => res.json())
-      .then((res) => fetchSport())
+      .then((res) => fetchTeam())
       .catch((err) => {
         if (err.status) {
           err.fullError.then((e) => console.log(e.detail));
@@ -112,27 +114,47 @@ function AdminCrud() {
       });
   };
 
-  const sportForm = () => {
+  const teamForm = () => {
     return (
       <div>
         <Form onSubmit={handleSubmit} >
 
-          <Form.Group controlId="sportName">
+          <Form.Group controlId="teamName">
             <Form.Label>Sport</Form.Label>
             <Form.Control
               type="text"
-              placeholder="sport name"
-              value={sport.sportName}
+              placeholder="team name"
+              value={team.teamName}
               onChange={handleChange}
             />
           </Form.Group>
 
-          <Form.Group controlId="description">
+          <Form.Group controlId="pricePerYear">
             <Form.Label>Sport</Form.Label>
             <Form.Control
               type="text"
-              placeholder="description"
-              value={sport.description}
+              placeholder="price per year"
+              value={team.pricePerYear}
+              onChange={handleChange}
+            />
+          </Form.Group>
+
+          <Form.Group controlId="minAge">
+            <Form.Label>Sport</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="minimum age"
+              value={team.minAge}
+              onChange={handleChange}
+            />
+          </Form.Group>
+
+          <Form.Group controlId="maxAge">
+            <Form.Label>Sport</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="maximum age"
+              value={team.maxAge}
               onChange={handleChange}
             />
           </Form.Group>
@@ -142,7 +164,7 @@ function AdminCrud() {
           </Button>
 
         </Form>
-        <p>{JSON.stringify(sport)}</p>
+        <p>{JSON.stringify(team)}</p>
       </div>
     );
   };
@@ -172,37 +194,41 @@ function AdminCrud() {
   }
 
   useEffect(() => {
-    fetchSport();
+    fetchTeam();
   }, []);
 
   return (
     <div>
       <Container>
-        <h2>CRUD for users</h2>
+        <h2>CRUD for Teams</h2>
         <Row className="mt-4">
           <Col>
             <Table striped bordered hover>
               <thead>
                 <tr>
-                  <th>Sport</th>
-                  <th>Sport description</th>
+                  <th>Team Name</th>
+                  <th>Price Per Year</th>
+                  <th>Minimum Age</th>
+                  <th>Maximum Age</th>
                   <th colSpan="2">&nbsp;</th>
                 </tr>
               </thead>
               <tbody>
-                {allSport.all &&
-                  allSport.all.map((element) => {
+                {allTeam.all &&
+                  allTeam.all.map((element) => {
                     return (
-                      <tr key={element.sportName}>
-                        <td>{element.sportName}</td>
-                        <td>{element.description}</td>
+                      <tr key={element.teamName}>
+                        <td>{element.teamName}</td>
+                        <td>{element.pricePerYear}</td>
+                        <td>{element.minAge}</td>
+                        <td>{element.maxAge}</td>
                         <td>
-                          <Button onClick={() => getSport(element.sportName)}>
+                          <Button onClick={() => getTeam(element.teamName)}>
                             Edit
                           </Button>
                         </td>
                         <td>
-                          <Button onClick={() => deleteSport(element.sportName)}>
+                          <Button onClick={() => deleteSport(element.teamName)}>
                             Delete
                           </Button>
                         </td>
@@ -214,11 +240,11 @@ function AdminCrud() {
 
           </Col>
         </Row>
-        {<Button onClick={() => addSport()}>Add</Button>}
-        {sportForm()}
+        {<Button onClick={() => addTeam()}>Add</Button>}
+        {teamForm()}
       </Container>
     </div>
   );
 }
 
-export default AdminCrud;
+export default AdminCrudSport;

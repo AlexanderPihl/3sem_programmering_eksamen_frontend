@@ -1,12 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Button, InputGroup, FormControl, Table, Form } from "react-bootstrap";
-import { AllTeams } from "./settings";
+import { AllTeams, ALLSports } from "./settings";
 
-const AllTeam = () => {
+const AllSportAndTeam = () => {
 
+    const [sport, setSport] = useState([]);
     const [team, setTeam] = useState([]);
 
-    const fetchRandomQuote = () => {
+    const fetchSport = () => {
+        fetch(ALLSports)
+            .then(res => res.json())
+            .then(data => {
+                setSport(data);
+            })
+    }
+
+    //loads random quote first time
+    useEffect(() => {
+        fetchSport();
+    }, []);
+
+    const fetchTeam = () => {
         fetch(AllTeams)
             .then(res => res.json())
             .then(data => {
@@ -16,14 +30,43 @@ const AllTeam = () => {
 
     //loads random quote first time
     useEffect(() => {
-        fetchRandomQuote();
+        fetchTeam();
     }, []);
 
     return (
-        <div>
 
+        <div>
             <Container>
-                <h2>Quotes from Breaking Bad</h2>
+                <h2>Sports</h2>
+                <Row className="mt-4">
+                </Row>
+                <Row className="mt-4">
+                    <Col>
+                        <Table striped bordered hover>
+                            <thead>
+                                <tr>
+                                    <th>Team Name</th>
+                                    <th>Price Per Year</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    sport.all && sport.all.map(element => {
+                                        return (
+                                            <tr>
+                                                <td>{element.sportName}</td>
+                                                <td>{element.description}</td>
+                                            </tr>
+                                        )
+                                    }
+                                    )}
+                            </tbody>
+                        </Table>
+                    </Col>
+                </Row>
+            </Container>
+            <Container>
+                <h2>Teams</h2>
                 <Row className="mt-4">
                 </Row>
                 <Row className="mt-4">
@@ -35,6 +78,7 @@ const AllTeam = () => {
                                     <th>Price Per Year</th>
                                     <th>Minimum age</th>
                                     <th>Maximum age</th>
+                                    <th>Sport</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -46,6 +90,7 @@ const AllTeam = () => {
                                                 <td>{element.pricePerYear}</td>
                                                 <td>{element.minAge}</td>
                                                 <td>{element.maxAge}</td>
+                                                <td>{element.sportTeamList}</td>
                                             </tr>
                                         )
                                     }
@@ -60,4 +105,4 @@ const AllTeam = () => {
 }
 
 
-export default AllTeam;
+export default AllSportAndTeam;
