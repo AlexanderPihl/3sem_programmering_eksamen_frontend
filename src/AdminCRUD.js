@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { AllUsers, DeleteUser, UpdateUser, GetUser, AddUser } from "./settings";
+import {
+  AllUsers, DeleteUser, UpdateUser, GetUser, AddUser,
+  ALLSports, SportByName, AddSport, UpdateSport, DeleteSport
+} from "./settings";
 import {
   Container,
   Row,
@@ -13,50 +16,46 @@ import {
 
 function AdminCrud() {
   const initialValues = {
-    email: "",
-    password: "",
-    firstName: "",
-    lastName: "",
-    phone: "",
-    street: "",
-    city: "",
-    zipcode: ""
+    sportName: "",
+    Description: "",
   };
 
-  const [allPerson, setAllPerson] = useState([]);
-  const [person, setPerson] = useState(initialValues);
+  //const [allPerson, setAllPerson] = useState([]);
+  //const [person, setPerson] = useState(initialValues);
+  const [allSport, setAllSport] = useState([]);
+  const [sport, setSport] = useState(initialValues);
 
   const handleSubmit = (event) => {
     //   alert('A name was submitted: ' + person.firstName);
     event.preventDefault();
-    updateForm(person);
-    console.log("from submit " + person);
+    updateForm(sport);
+    console.log("from submit " + sport);
   };
 
   const handleChange = (event) => {
     const target = event.target;
     const id = target.id;
     const value = target.value;
-    setPerson({ ...person, [id]: value });
+    setSport({ ...sport, [id]: value });
     console.log("from change " + id);
   };
 
-  const fetchPerson = () => {
-    fetch(AllUsers)
+  const fetchSport = () => {
+    fetch(ALLSports)
       .then((res) => res.json())
       .then((data) => {
-        setAllPerson(data);
+        setAllSport(data);
       });
   };
 
-  const deletePerson = (email) => {
+  const deleteSport = (sportName) => {
     const options = makeOptions("DELETE");
 
-    fetch(DeleteUser + email, options)
+    fetch(DeleteSport + sportName, options)
       .then((res) => res.json())
       .then((data) => {
-        setAllPerson(data);
-        fetchPerson();
+        setAllSport(data);
+        fetchSport();
       })
       .catch((err) => {
         if (err.status) {
@@ -67,11 +66,12 @@ function AdminCrud() {
       });
   };
 
-  const updateForm = (person) => {
-    const options = makeOptions("PUT", person);
+  const updateForm = (sport) => {
+    const options = makeOptions("PUT", sport);
 
-    fetch(UpdateUser, options)
-      .then((res) => fetchPerson())
+    fetch(UpdateSport + sport.sportName, options)
+      .then((res) => fetchSport())
+      .then(reset => setSport(initialValues))
       .catch((err) => {
         if (err.status) {
           err.fullError.then((e) => console.log(e.detail));
@@ -81,11 +81,11 @@ function AdminCrud() {
       });
   };
 
-  const getPerson = (email) => {
-    fetch(GetUser + email)
+  const getSport = (sportName) => {
+    fetch(SportByName + sportName)
       .then((res) => res.json())
       .then((data) => {
-        setPerson(data);
+        setSport(data);
         console.log(data);
       })
       .catch((err) => {
@@ -97,12 +97,12 @@ function AdminCrud() {
       });
   };
 
-  const addPerson = () => {
-    const options = makeOptions("POST", person);
+  const addSport = () => {
+    const options = makeOptions("POST", sport);
 
-    fetch(AddUser, options)
+    fetch(AddSport, options)
       .then((res) => res.json())
-      .then((res) => fetchPerson())
+      .then((res) => fetchSport())
       .catch((err) => {
         if (err.status) {
           err.fullError.then((e) => console.log(e.detail));
@@ -112,79 +112,27 @@ function AdminCrud() {
       });
   };
 
-  const userForm = () => {
+  const sportForm = () => {
     return (
       <div>
-        <Form onSubmit={handleSubmit}>
-          <Form.Group controlId="email">
-            <Form.Label>Email</Form.Label>
+        <Form onSubmit={handleSubmit} >
+
+          <Form.Group controlId="sportName">
+            <Form.Label>Sport</Form.Label>
             <Form.Control
               type="text"
-              placeholder="Email"
-              value={person.email}
+              placeholder="sport name"
+              value={sport.sportName}
               onChange={handleChange}
             />
           </Form.Group>
-          <Form.Group controlId="password">
-            <Form.Label>Password</Form.Label>
+
+          <Form.Group controlId="description">
+            <Form.Label>Sport</Form.Label>
             <Form.Control
               type="text"
-              placeholder="Password"
-              value={person.password}
-              onChange={handleChange}
-            />
-          </Form.Group>
-          <Form.Group controlId="firstName">
-            <Form.Label>First name</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="First name"
-              value={person.firstName}
-              onChange={handleChange}
-            />
-          </Form.Group>
-          <Form.Group controlId="lastName">
-            <Form.Label>Last name</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Last name"
-              value={person.lastName}
-              onChange={handleChange}
-            />
-          </Form.Group>
-          <Form.Group controlId="phone">
-            <Form.Label>Phone</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Phone"
-              value={person.phone}
-              onChange={handleChange}
-            />
-          </Form.Group>
-          <Form.Group controlId="street">
-            <Form.Label>Street</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Street"
-              value={person.street}
-              onChange={handleChange}
-            />
-          </Form.Group>
-          <Form.Group controlId="city">
-            <Form.Label>City</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="City"
-              value={person.city}
-              onChange={handleChange}
-            />
-          </Form.Group>
-          <Form.Group controlId="zipcode">
-            <Form.Label>Zipcode</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Zipcode"
-              value={person.zipcode}
+              placeholder="description"
+              value={sport.description}
               onChange={handleChange}
             />
           </Form.Group>
@@ -192,8 +140,9 @@ function AdminCrud() {
           <Button variant="primary" type="submit">
             Submit
           </Button>
+
         </Form>
-        <p>{JSON.stringify(person)}</p>
+        <p>{JSON.stringify(sport)}</p>
       </div>
     );
   };
@@ -215,15 +164,15 @@ function AdminCrud() {
     return opts;
   }
 
-  /* function fetchWithErrorCheck(res) {
+  function fetchWithErrorCheck(res) {
     if (!res.ok) {
       return Promise.reject({ status: res.status, fullError: res.json() });
     }
     return res.json();
-  } */
+  }
 
   useEffect(() => {
-    fetchPerson();
+    fetchSport();
   }, []);
 
   return (
@@ -235,37 +184,25 @@ function AdminCrud() {
             <Table striped bordered hover>
               <thead>
                 <tr>
-                  <th>First name</th>
-                  <th>Last name</th>
-                  <th>Email</th>
-                  <th>Phone</th>
-                  <th>Street</th>
-                  <th>City</th>
-                  <th>Zip</th>
-                  <th>Hobby</th>
+                  <th>Sport</th>
+                  <th>Sport description</th>
                   <th colSpan="2">&nbsp;</th>
                 </tr>
               </thead>
               <tbody>
-                {allPerson.all &&
-                  allPerson.all.map((element) => {
+                {allSport.all &&
+                  allSport.all.map((element) => {
                     return (
-                      <tr key={element.email}>
-                        <td>{element.firstName}</td>
-                        <td>{element.lastName}</td>
-                        <td>{element.email}</td>
-                        <td>{element.phone}</td>
-                        <td>{element.street}</td>
-                        <td>{element.city}</td>
-                        <td>{element.zipcode}</td>
-                        <td>{element.hobbyList.map((el) => el + ", ")}</td>
+                      <tr key={element.sportName}>
+                        <td>{element.sportName}</td>
+                        <td>{element.description}</td>
                         <td>
-                          <Button onClick={() => getPerson(element.email)}>
+                          <Button onClick={() => getSport(element.sportName)}>
                             Edit
                           </Button>
                         </td>
                         <td>
-                          <Button onClick={() => deletePerson(element.email)}>
+                          <Button onClick={() => deleteSport(element.sportName)}>
                             Delete
                           </Button>
                         </td>
@@ -274,11 +211,11 @@ function AdminCrud() {
                   })}
               </tbody>
             </Table>
-            <Button onClick={() => addPerson()}>Add</Button>
+
           </Col>
         </Row>
-
-        {userForm()}
+        {<Button onClick={() => addSport()}>Add</Button>}
+        {sportForm()}
       </Container>
     </div>
   );
