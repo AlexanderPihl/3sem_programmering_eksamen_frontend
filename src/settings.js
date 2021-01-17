@@ -20,6 +20,8 @@ export const AddTeam = "http://localhost:8080/3_sem_eksamensprojekt/api/sportTea
 export const UpdateTeam = "http://localhost:8080/3_sem_eksamensprojekt/api/sportTeam/edit/";
 export const DeleteTeam = "http://localhost:8080/3_sem_eksamensprojekt/api/sportTeam/delete/";
 
+export const AllCoach = "http://localhost:8080/3_sem_eksamensprojekt/api/coach/all";
+
 /* export const URL = "https://alexanderpihl.com/3sem_programmering_eksamen_backend";
 export const URLJokes = "https://alexanderpihl.com/3sem_programmering_eksamen_backend/api/jokes";
 export const URLScrapeSequential = "https://alexanderpihl.com/3sem_programmering_eksamen_backend/api/scrape/sequential";

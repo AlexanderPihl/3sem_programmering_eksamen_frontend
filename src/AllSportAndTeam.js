@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Button, InputGroup, FormControl, Table, Form } from "react-bootstrap";
-import { AllTeams, ALLSports } from "./settings";
+import { AllTeams, ALLSports, AllCoach } from "./settings";
 
 const AllSportAndTeam = () => {
 
     const [sport, setSport] = useState([]);
     const [team, setTeam] = useState([]);
+    const [coach, setCoach] = useState([]);
 
     const fetchSport = () => {
         fetch(ALLSports)
@@ -31,6 +32,19 @@ const AllSportAndTeam = () => {
     //loads random quote first time
     useEffect(() => {
         fetchTeam();
+    }, []);
+
+    const fetchCoach = () => {
+        fetch(AllCoach)
+            .then(res => res.json())
+            .then(data => {
+                setCoach(data);
+            })
+    }
+
+    //loads random quote first time
+    useEffect(() => {
+        fetchCoach();
     }, []);
 
     return (
@@ -89,6 +103,37 @@ const AllSportAndTeam = () => {
                                                 <td>{element.pricePerYear}</td>
                                                 <td>{element.minAge}</td>
                                                 <td>{element.maxAge}</td>
+                                            </tr>
+                                        )
+                                    }
+                                    )}
+                            </tbody>
+                        </Table>
+                    </Col>
+                </Row>
+            </Container>
+            <Container>
+                <h2>Coaches</h2>
+                <Row className="mt-4">
+                </Row>
+                <Row className="mt-4">
+                    <Col>
+                        <Table striped bordered hover>
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Phone</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    coach.all && coach.all.map(element => {
+                                        return (
+                                            <tr>
+                                                <td>{element.name}</td>
+                                                <td>{element.email}</td>
+                                                <td>{element.phone}</td>
                                             </tr>
                                         )
                                     }
