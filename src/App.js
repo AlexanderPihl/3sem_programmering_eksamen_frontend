@@ -8,6 +8,8 @@ import AdminCrud from "./AdminCRUD";
 import Login from "./Login";
 import { Switch, Route, NavLink, useHistory } from "react-router-dom";
 
+import AllTeam from "./AllTeam";
+
 const Header = ({ isLoggedIn, loginMsg, isAdmin, loginName }) => {
   return (
     <>
@@ -17,15 +19,9 @@ const Header = ({ isLoggedIn, loginMsg, isAdmin, loginName }) => {
           <NavLink className="nav-link" exact activeClassName="selected" href="/" to="/">
             Home
         </NavLink>
-          <NavLink className="nav-link" activeClassName="selected" to="/jokes">
-            Jokes
+          <NavLink className="nav-link" activeClassName="selected" to="/team">
+            Teams
         </NavLink>
-
-          {isLoggedIn && (
-            <NavLink className="nav-link" activeClassName="selected" to="/scrape" href="/scrape">
-              Scrape
-            </NavLink>
-          )}
           {isAdmin && (
             <>
               <li>
@@ -84,11 +80,8 @@ export default function App() {
           <Route exact path="/">
             <Home />
           </Route>
-          <Route path="/jokes">
-            <Jokes />
-          </Route>
-          <Route path="/scrape">
-            <Scrape />
+          <Route path="/team">
+            <Team />
           </Route>
           <Route path="/admin">
             <Admin />
@@ -118,18 +111,10 @@ function Home() {
   );
 }
 
-function Jokes() {
+function Team() {
   return (
     <div className="pageContent">
-      <AllJokes />
-    </div>
-  );
-}
-
-function Scrape() {
-  return (
-    <div className="pageContent">
-      <AllScrape />
+      <AllTeam />
     </div>
   );
 }

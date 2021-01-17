@@ -8,11 +8,13 @@ export const UpdateUser = "http://localhost:8080/3_sem_eksamensprojekt/api/info/
 export const GetUser = "http://localhost:8080/3_sem_eksamensprojekt/api/info/person/";
 export const AddUser = "http://localhost:8080/3_sem_eksamensprojekt/api/info";
 
-export const ALLSports = "http://localhost:8080/3_sem_eksamensprojekt/api/sport/all"
-export const SportByName = "http://localhost:8080/3_sem_eksamensprojekt/api/sport/"
-export const AddSport = "http://localhost:8080/3_sem_eksamensprojekt/api/sport/"
-export const UpdateSport = "http://localhost:8080/3_sem_eksamensprojekt/api/sport/update/"
-export const DeleteSport = "http://localhost:8080/3_sem_eksamensprojekt/api/sport/delete/"
+export const ALLSports = "http://localhost:8080/3_sem_eksamensprojekt/api/sport/all";
+export const SportByName = "http://localhost:8080/3_sem_eksamensprojekt/api/sport/";
+export const AddSport = "http://localhost:8080/3_sem_eksamensprojekt/api/sport/";
+export const UpdateSport = "http://localhost:8080/3_sem_eksamensprojekt/api/sport/update/";
+export const DeleteSport = "http://localhost:8080/3_sem_eksamensprojekt/api/sport/delete/";
+
+export const AllTeams = "http://localhost:8080/3_sem_eksamensprojekt/api/sportTeam/all";
 
 /* export const URL = "https://alexanderpihl.com/3sem_programmering_eksamen_backend";
 export const URLJokes = "https://alexanderpihl.com/3sem_programmering_eksamen_backend/api/jokes";
