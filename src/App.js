@@ -21,7 +21,7 @@ const Header = ({ isLoggedIn, loginMsg, isAdmin, loginName }) => {
             Home
         </NavLink>
           <NavLink className="nav-link" activeClassName="selected" to="/team">
-            Sport And Teams
+            Sport, Teams and Coaches
         </NavLink>
           {isAdmin && (
             <>
@@ -107,7 +107,10 @@ export default function App() {
 function Home() {
   return (
     <div className="pageContent">
-      <h2>Home</h2>
+      <h1 class="text-center">Sport Club</h1>
+      <h2 class="text-muted text-center">Welcome to the exclusive sport club</h2>
+      <h5 class="text-center">Head over to the Sport, Teams and Coaches tab or login for more functionality</h5>
+
     </div>
   );
 }

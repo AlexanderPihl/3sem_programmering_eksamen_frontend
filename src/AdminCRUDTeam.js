@@ -228,7 +228,7 @@ function AdminCrudSport() {
                           </Button>
                         </td>
                         <td>
-                          <Button onClick={() => deleteSport(element.teamName)}>
+                          <Button variant="danger" onClick={() => deleteSport(element.teamName)}>
                             Delete
                           </Button>
                         </td>
@@ -240,7 +240,7 @@ function AdminCrudSport() {
 
           </Col>
         </Row>
-        {<Button onClick={() => addTeam()}>Add</Button>}
+        {<Button variant="success" onClick={() => addTeam()}>Add</Button>}
         {teamForm()}
       </Container>
     </div>
