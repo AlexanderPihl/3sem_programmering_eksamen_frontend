@@ -15,7 +15,7 @@ const Header = ({ isLoggedIn, loginMsg, isAdmin, loginName }) => {
   return (
     <>
       <Navbar bg="dark" variant="dark" id="header">
-        <Navbar.Brand href="#home">Hold E, Gruppe 8</Navbar.Brand>
+        <Navbar.Brand href="#home">Alexander Pihl</Navbar.Brand>
         <Nav className="mr-auto">
           <NavLink className="nav-link" exact activeClassName="selected" href="/" to="/">
             Home
@@ -124,6 +124,7 @@ function Admin() {
   return (
     <div className="pageContent">
       <AdminCrudSport />
+      <br />
       <AdminCrudTeam />
     </div>
   );

@@ -118,7 +118,7 @@ function AdminCrudSport() {
         <Form onSubmit={handleSubmit} >
 
           <Form.Group controlId="sportName">
-            <Form.Label>Sport</Form.Label>
+            <Form.Label>Sport Name</Form.Label>
             <Form.Control
               type="text"
               placeholder="sport name"
@@ -128,7 +128,7 @@ function AdminCrudSport() {
           </Form.Group>
 
           <Form.Group controlId="description">
-            <Form.Label>Sport</Form.Label>
+            <Form.Label>Description</Form.Label>
             <Form.Control
               type="text"
               placeholder="description"
@@ -138,11 +138,10 @@ function AdminCrudSport() {
           </Form.Group>
 
           <Button variant="primary" type="submit">
-            Submit
+            Update Sport
           </Button>
 
         </Form>
-        <p>{JSON.stringify(sport)}</p>
       </div>
     );
   };
@@ -186,7 +185,6 @@ function AdminCrudSport() {
                 <tr>
                   <th>Sport</th>
                   <th>Sport description</th>
-                  <th>Teams</th>
                   <th colSpan="2">&nbsp;</th>
                 </tr>
               </thead>
@@ -197,7 +195,6 @@ function AdminCrudSport() {
                       <tr key={element.sportName}>
                         <td>{element.sportName}</td>
                         <td>{element.description}</td>
-                        <td>{element.sportTeamsList}</td>
                         <td>
                           <Button onClick={() => getSport(element.sportName)}>
                             Edit

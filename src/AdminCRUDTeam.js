@@ -120,7 +120,7 @@ function AdminCrudSport() {
         <Form onSubmit={handleSubmit} >
 
           <Form.Group controlId="teamName">
-            <Form.Label>Sport</Form.Label>
+            <Form.Label>Team Name</Form.Label>
             <Form.Control
               type="text"
               placeholder="team name"
@@ -130,7 +130,7 @@ function AdminCrudSport() {
           </Form.Group>
 
           <Form.Group controlId="pricePerYear">
-            <Form.Label>Sport</Form.Label>
+            <Form.Label>Price Per Year</Form.Label>
             <Form.Control
               type="text"
               placeholder="price per year"
@@ -140,7 +140,7 @@ function AdminCrudSport() {
           </Form.Group>
 
           <Form.Group controlId="minAge">
-            <Form.Label>Sport</Form.Label>
+            <Form.Label>Minimum age</Form.Label>
             <Form.Control
               type="text"
               placeholder="minimum age"
@@ -150,7 +150,7 @@ function AdminCrudSport() {
           </Form.Group>
 
           <Form.Group controlId="maxAge">
-            <Form.Label>Sport</Form.Label>
+            <Form.Label>Maximum age</Form.Label>
             <Form.Control
               type="text"
               placeholder="maximum age"
@@ -160,11 +160,10 @@ function AdminCrudSport() {
           </Form.Group>
 
           <Button variant="primary" type="submit">
-            Submit
+            Update Team
           </Button>
 
         </Form>
-        <p>{JSON.stringify(team)}</p>
       </div>
     );
   };
@@ -210,6 +209,7 @@ function AdminCrudSport() {
                   <th>Price Per Year</th>
                   <th>Minimum Age</th>
                   <th>Maximum Age</th>
+                  <th>Sport</th>
                   <th colSpan="2">&nbsp;</th>
                 </tr>
               </thead>

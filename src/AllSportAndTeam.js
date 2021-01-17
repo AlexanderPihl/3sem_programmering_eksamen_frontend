@@ -46,7 +46,7 @@ const AllSportAndTeam = () => {
                             <thead>
                                 <tr>
                                     <th>Team Name</th>
-                                    <th>Price Per Year</th>
+                                    <th>Description</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -78,7 +78,6 @@ const AllSportAndTeam = () => {
                                     <th>Price Per Year</th>
                                     <th>Minimum age</th>
                                     <th>Maximum age</th>
-                                    <th>Sport</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -90,7 +89,6 @@ const AllSportAndTeam = () => {
                                                 <td>{element.pricePerYear}</td>
                                                 <td>{element.minAge}</td>
                                                 <td>{element.maxAge}</td>
-                                                <td>{element.sportTeamList}</td>
                                             </tr>
                                         )
                                     }
